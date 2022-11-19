@@ -7,9 +7,9 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { StackParams } from '@/Navigators/Application'
 import { ArrowForwardIcon } from '@/Assets/Icons/icons'
 import { useLoginMutation } from '@/Services/modules/auth'
-import { useDispatch, useSelector } from 'react-redux'
-import { setUser, UserState } from '@/Store/User'
+import { useDispatch } from 'react-redux'
 import ButtonLoadingIndicator from '@/Components/ButtonLoadingIndicator'
+import { setUser } from '@/Store/Accounts'
 
 interface LoginContainerProps {
   navigation: StackNavigationProp<StackParams, 'Login'>
@@ -19,8 +19,6 @@ const LoginContainer = ({
   navigation,
 }: LoginContainerProps): React.ReactElement => {
   const dispatch = useDispatch()
-
-  const user = useSelector((state: { user: UserState }) => state.user)
 
   const [username, setUsername] = useState<string>('c1logistics')
   const [password, setPassword] = useState<string>('C1?holamundo')

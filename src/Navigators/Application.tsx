@@ -8,8 +8,9 @@ import {
   StartupContainer,
 } from '@/Containers'
 import { useTheme } from '@/Hooks'
-import MainNavigator from './Main'
+
 import { navigationRef } from './utils'
+import { MainNavigator } from '@/Navigators/Main'
 
 export type StackParams = {
   Startup: undefined

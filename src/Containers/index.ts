@@ -1,5 +1,5 @@
-export { default as ExampleContainer } from './ExampleContainer'
+export { default as ExampleContainer } from './OperationsContainer'
 export { default as StartupContainer } from './StartupContainer'
-export { default as EvaContainer } from './EvaContainer'
+export { default as EvaContainer } from './BasesContainer'
 export { default as LoginContainer } from './LoginContainer'
 export { default as AccountsSelectContainer } from './AccountsSelectContainer'

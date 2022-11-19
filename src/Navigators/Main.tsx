@@ -1,38 +1,45 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import {
-  BottomNavigation,
-  BottomNavigationTab,
-  Icon,
-} from '@ui-kitten/components'
+import { createDrawerNavigator } from '@react-navigation/drawer'
 import { EvaContainer } from '@/Containers'
-import { OperationsNavigator } from '@/Navigators/Operations'
+import { HomeBottomNavigation } from '@/Navigators/HomeBottomNavigation'
+import { HomeDrawer } from '@/Navigators/MainDrawer'
+import OperationsContainer from '@/Containers/OperationsContainer'
+import useAccount from '@/Hooks/useAccount'
 
 const { Navigator, Screen } = createBottomTabNavigator()
+const Drawer = createDrawerNavigator()
 
-const TruckIcon = props => <Icon {...props} name="car-outline" />
-const ArchiveIcon = props => <Icon {...props} name="archive-outline" />
-const BarIcon = props => <Icon {...props} name="bar-chart-outline" />
+const ROOT_ROUTES: string[] = ['Home', 'Operaciones', 'Bases', 'Informes']
 
-const BottomTabBar = ({ navigation, state }) => (
-  <BottomNavigation
-    selectedIndex={state.index}
-    onSelect={index => navigation.navigate(state.routeNames[index])}
+const HomeTabsNavigator = (): React.ReactElement => (
+  <Navigator
+    screenOptions={({ route }) => {
+      console.log(route)
+      // const isNestedRoute: boolean = route?.state?.index > 0
+      const isRootRoute: boolean = ROOT_ROUTES.includes(route.name)
+
+      return {
+        tabBarVisible: isRootRoute,
+        headerShown: false,
+      }
+    }}
+    tabBar={props => <HomeBottomNavigation {...props} />}
   >
-    <BottomNavigationTab title="Operaciones" icon={TruckIcon} />
-    <BottomNavigationTab title="Bases" icon={ArchiveIcon} />
-    <BottomNavigationTab title="Informes" icon={BarIcon} />
-  </BottomNavigation>
-)
-
-const TabNavigator = () => (
-  <Navigator tabBar={props => <BottomTabBar {...props} />}>
-    <Screen name="Operaciones" component={OperationsNavigator} />
+    <Screen name="Operaciones" component={OperationsContainer} />
     <Screen name="Bases" component={EvaContainer} />
     <Screen name="Informes" component={EvaContainer} />
   </Navigator>
 )
 
-const MainNavigator = () => <TabNavigator />
-
-export default MainNavigator
+export const MainNavigator = (): React.ReactElement => {
+  const { company } = useAccount()
+  return (
+    <Drawer.Navigator drawerContent={props => <HomeDrawer {...props} />}>
+      <Drawer.Screen
+        name={company?.name || 'Netherite'}
+        component={HomeTabsNavigator}
+      />
+    </Drawer.Navigator>
+  )
+}

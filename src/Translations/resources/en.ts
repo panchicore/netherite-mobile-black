@@ -1,5 +1,5 @@
 export default {
-  welcome: 'Welcome to React Native netherite_mobile_black by TheCodingMachine',
+  welcome: 'Welcome to Netherite',
   actions: {
     continue: 'Continue',
   },

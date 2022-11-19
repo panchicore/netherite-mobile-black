@@ -22,6 +22,11 @@ export type User = {
   last_name: string
 }
 
+export type Tokens = {
+  refresh_token: string
+  access_token: string
+}
+
 export type AuthResponse = {
   refresh_token: string
   access_token: string

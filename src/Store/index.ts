@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { AnyAction, combineReducers, configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import {
   FLUSH,
@@ -14,12 +14,10 @@ import {
 
 import { api } from '@/Services/api'
 import theme from './Theme'
-import user from './User'
 import account from './Accounts'
 
 const reducers = combineReducers({
   theme,
-  user,
   account,
   api: api.reducer,
 })
@@ -30,7 +28,18 @@ const persistConfig = {
   whitelist: ['theme', 'user', 'account'],
 }
 
-const persistedReducer = persistReducer(persistConfig, reducers)
+const rootReducer = (
+  state: ReturnType<typeof reducers> | undefined,
+  action: AnyAction,
+) => {
+  if (action.type === 'RESET') {
+    // helper to quickly reset redux storage by sending this action via flipper.
+    return reducers(undefined, { type: undefined })
+  }
+  return reducers(state, action)
+}
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const store = configureStore({
   reducer: persistedReducer,

@@ -3,24 +3,25 @@ import { Account } from '@/Services/modules/accounts/fetchAccounts'
 import { ListItem } from '@ui-kitten/components'
 import { useFetchCompanyQuery } from '@/Services/modules/companies'
 import { useDispatch } from 'react-redux'
-import { setAccount } from '@/Store/Accounts'
+import { setAccount, setCompany } from '@/Store/Accounts'
 
 interface AccountSelectListItemProps {
-  item: Account
+  account: Account
 }
 
-const AccountSelectListItem = ({ item }: AccountSelectListItemProps) => {
-  const { data } = useFetchCompanyQuery(item.id)
+const AccountSelectListItem = ({ account }: AccountSelectListItemProps) => {
+  const { data: company } = useFetchCompanyQuery(account.id)
   const dispatch = useDispatch()
   const onPressed = () => {
-    dispatch(setAccount(item))
+    dispatch(setAccount(account))
+    dispatch(setCompany(company))
   }
-  if (data) {
+  if (company) {
     return (
       <ListItem
         onPress={onPressed}
-        title={`${data.name}`}
-        description={`${item.uuid}`}
+        title={`${company.name}`}
+        description={`${account.uuid}`}
       />
     )
   }

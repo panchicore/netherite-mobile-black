@@ -5,16 +5,22 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "jsx": "react",
     "lib": [
       "es6",
-      "esnext"
+      "esnext",
+      "dom"
     ],
     "moduleResolution": "node",
     "noEmit": true,
     "strict": true,
     "target": "esnext",
     "baseUrl": "./src",
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
     "paths": {
       "@/*": [
         "./*"
