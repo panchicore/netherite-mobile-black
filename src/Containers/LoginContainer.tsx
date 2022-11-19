@@ -4,7 +4,7 @@ import { ImageOverlay } from '@/Components/extras/ImageOverlay'
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { StackParams } from '@/Navigators/Application'
+import { RootStackParams } from '@/Navigators/Application'
 import { ArrowForwardIcon } from '@/Assets/Icons/icons'
 import { useLoginMutation } from '@/Services/modules/auth'
 import { useDispatch } from 'react-redux'
@@ -12,7 +12,7 @@ import ButtonLoadingIndicator from '@/Components/ButtonLoadingIndicator'
 import { setUser } from '@/Store/Accounts'
 
 interface LoginContainerProps {
-  navigation: StackNavigationProp<StackParams, 'Login'>
+  navigation: StackNavigationProp<RootStackParams, 'Login'>
 }
 
 const LoginContainer = ({

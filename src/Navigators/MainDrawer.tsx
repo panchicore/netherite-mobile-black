@@ -5,17 +5,24 @@ import {
   Drawer,
   DrawerElement,
   DrawerItem,
-  Icon,
   IndexPath,
   Layout,
   Text,
 } from '@ui-kitten/components'
 import { SafeAreaLayout } from '@/Components/SafeAreaLayout'
+import { useDispatch } from 'react-redux'
+import { resetAccounts } from '@/Store/Accounts'
+import { TruckIcon } from '@/Assets/Icons/icons'
 
-const TruckIcon = props => <Icon {...props} name="car-outline" />
-
-export const HomeDrawer = ({ navigation }): DrawerElement => {
-  const [selectedIndex, setSelectedIndex] = useState<IndexPath>(null)
+export const HomeDrawer = ({
+  navigation,
+}: {
+  navigation: any
+}): DrawerElement => {
+  const [selectedIndex, setSelectedIndex] = useState<IndexPath | undefined>(
+    undefined,
+  )
+  const dispatch = useDispatch()
 
   const DATA = [
     {
@@ -30,6 +37,7 @@ export const HomeDrawer = ({ navigation }): DrawerElement => {
       title: 'Salir',
       icon: TruckIcon,
       onPress: () => {
+        dispatch(resetAccounts)
         navigation.navigate('Login')
         navigation.toggleDrawer()
       },

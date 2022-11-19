@@ -12,14 +12,14 @@ import { useTheme } from '@/Hooks'
 import { navigationRef } from './utils'
 import { MainNavigator } from '@/Navigators/Main'
 
-export type StackParams = {
+export type RootStackParams = {
   Startup: undefined
   Login: undefined
   Main: undefined
   AccountsSelect: undefined
 }
 
-const Stack = createStackNavigator<StackParams>()
+const Stack = createStackNavigator<RootStackParams>()
 
 // @refresh reset
 const ApplicationNavigator = () => {

@@ -2,14 +2,16 @@ import { createSlice } from '@reduxjs/toolkit'
 import { Account } from '@/Services/modules/accounts/fetchAccounts'
 import { Tokens, User } from '@/Services/modules/auth/login'
 
+const initialState = {
+  current: null,
+  all: [],
+  user: null,
+  company: null,
+} as AccountState
+
 const slice = createSlice({
   name: 'accounts',
-  initialState: {
-    current: null,
-    all: [],
-    user: null,
-    company: null,
-  } as AccountState,
+  initialState,
   reducers: {
     setAccount: (state, { payload: current }) => {
       state.current = current
@@ -26,10 +28,17 @@ const slice = createSlice({
     setCompany: (state, { payload: company }) => {
       state.company = company
     },
+    resetAccounts: state => {
+      state.current = initialState.current
+      state.all = initialState.all
+      state.user = initialState.user
+      state.company = initialState.company
+    },
   },
 })
 
-export const { setAccount, setAccounts, setUser, setCompany } = slice.actions
+export const { setAccount, setAccounts, setUser, setCompany, resetAccounts } =
+  slice.actions
 export default slice.reducer
 
 export type AccountState = {

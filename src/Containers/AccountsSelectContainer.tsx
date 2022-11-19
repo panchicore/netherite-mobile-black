@@ -5,7 +5,14 @@ import { useDispatch } from 'react-redux'
 import { SafeAreaLayout } from '@/Components/SafeAreaLayout'
 import { useFetchAccountsQuery } from '@/Services/modules/accounts'
 import AccountSelectListItem from '@/Components/AccountSelectListItem'
-import { setAccounts as setAccountsAction } from '@/Store/Accounts'
+import {
+  setAccount,
+  setAccounts as setAccountsAction,
+  setCompany,
+} from '@/Store/Accounts'
+import { navigateAndSimpleReset } from '@/Navigators/utils'
+import { Account } from '@/Services/modules/accounts/fetchAccounts'
+import { Company } from '@/Services/modules/companies/fetchOne'
 
 const AccountsSelectContainer = (): React.ReactElement => {
   const dispatch = useDispatch()
@@ -17,13 +24,22 @@ const AccountsSelectContainer = (): React.ReactElement => {
     }
   }, [accounts, dispatch])
 
+  const selectAccount = (account: Account, company: Company) => {
+    dispatch(setAccount(account))
+    dispatch(setCompany(company))
+    navigateAndSimpleReset('Main')
+  }
+
   return (
     <SafeAreaLayout style={styles.container} insets="top">
       <TopNavigation title="Seleccione su cuenta" />
       <List
         data={accounts}
         renderItem={({ item: account }) => (
-          <AccountSelectListItem account={account} />
+          <AccountSelectListItem
+            account={account}
+            onAccountSelect={selectAccount}
+          />
         )}
         style={styles.list}
       />
