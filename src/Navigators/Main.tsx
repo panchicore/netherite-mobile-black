@@ -15,7 +15,6 @@ const ROOT_ROUTES: string[] = ['Home', 'Operaciones', 'Bases', 'Informes']
 const HomeTabsNavigator = (): React.ReactElement => (
   <Navigator
     screenOptions={({ route }) => {
-      console.log(route)
       // const isNestedRoute: boolean = route?.state?.index > 0
       const isRootRoute: boolean = ROOT_ROUTES.includes(route.name)
 
